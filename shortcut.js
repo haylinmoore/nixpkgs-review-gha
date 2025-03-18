@@ -4,7 +4,7 @@
 // @version      0.1
 // @description  Adds nixpkgs-review and PR Tracker buttons to Nixpkgs PRs
 // @author       haylinmoore
-// @match        https://github.com/nixos/nixpkgs/pull/*
+// @match        https://github.com/NixOS/nixpkgs/pull/*
 // @grant        none
 // @updateURL    https://raw.githubusercontent.com/haylinmoore/nixpkgs-review-gha/main/shortcut.js
 // @downloadURL  https://raw.githubusercontent.com/haylinmoore/nixpkgs-review-gha/main/shortcut.js
@@ -56,6 +56,13 @@
       }
     }
 
-    navigation.addEventListener('navigate', setup);
+    let lastUrl = location.href;
+    new MutationObserver(() => {
+      if (location.href !== lastUrl) {
+        lastUrl = location.href;
+        setup();
+      }
+    }).observe(document, {subtree: true, childList: true});
     setup();
 })();
+
