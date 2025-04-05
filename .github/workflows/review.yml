@@ -293,7 +293,7 @@ jobs:
         if: ${{ inputs.approve-on-success && needs.report.outputs.success == 'true' }}
         run: |
           if [[ -n "$GH_TOKEN" ]]; then
-            gh pr -R NixOS/nixpkgs review ${PR_NUMBER} --approve -b "Approved automatically following the successful run of \`nixpkgs-review\`." || true
+            gh pr -R NixOS/nixpkgs review ${PR_NUMBER} --approve || true
           fi
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
